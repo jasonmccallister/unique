@@ -1,13 +1,11 @@
 package main
 
 import (
-	"bufio"
-	"encoding/csv"
 	"flag"
 	"fmt"
-	"io"
-	"log"
 	"os"
+
+	unique "github.com/jasonmccallister/unique/pkg"
 )
 
 var (
@@ -21,6 +19,7 @@ func main() {
 	flag.StringVar(&fileArg, "file", "", "Name of the file to process (relative to the current directory")
 	flag.IntVar(&columnArg, "column", 0, "Which column should be used for unique values")
 	flag.BoolVar(&hasHeaderArg, "header", true, "If the file has a header, setting this will bypass the first row of the CSV")
+
 	flag.Parse()
 
 	if fileArg == "" {
@@ -31,47 +30,20 @@ func main() {
 		os.Exit(1)
 	}
 
-	data := make(map[string]int)
-	csvFile, err := open(fileArg)
-	handleError(err)
-
-	rdr := csv.NewReader(csvFile)
-	for {
-		line, err := rdr.Read()
-		if err == io.EOF {
-			break
-		}
-		if err != nil {
-			log.Println(line)
-			log.Println(err.Error())
-			continue
-		}
-
-		if line != nil {
-			col := line[0]
-			if d, ok := data[col]; ok {
-				data[col] = d + 1
-			} else {
-				data[col] = 1
-			}
-		}
-	}
-
-	log.Println(fmt.Sprintf("there are a total of %v unique values for column %v", len(data), columnArg))
-}
-
-func open(file string) (*bufio.Reader, error) {
-	f, err := os.Open(file)
+	file, err := os.Open(fileArg)
 	if err != nil {
-		return nil, err
-	}
-
-	return bufio.NewReader(f), nil
-}
-
-func handleError(e error) {
-	if e != nil {
-		log.Println(e.Error())
+		fmt.Println(err)
 		os.Exit(1)
 	}
+
+	count, err := unique.CSV(file, unique.CSVOptions{
+		HasHeaders: hasHeaderArg,
+		Column:     columnArg,
+	})
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	fmt.Println(fmt.Sprintf("there are a total of %v unique values for column %v", count, columnArg))
 }
