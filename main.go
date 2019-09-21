@@ -36,7 +36,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	count, err := unique.CSV(file, unique.CSVOptions{
+	count, err := unique.CSV(file, unique.Options{
 		HasHeaders: hasHeaderArg,
 		Column:     columnArg,
 	})

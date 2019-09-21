@@ -6,14 +6,14 @@ import (
 	"os"
 )
 
-// CSVOptions stores the options for the
-type CSVOptions struct {
+// Options stores the options for the
+type Options struct {
 	HasHeaders bool
 	Column     int
 }
 
 // CSV takes a file as a Reader and returns an int of the unique count.
-func CSV(f *os.File, opts CSVOptions) (int, error) {
+func CSV(f *os.File, opts Options) (int, error) {
 	data := make(map[string]int)
 
 	rdr := csv.NewReader(f)
