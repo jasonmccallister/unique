@@ -17,7 +17,7 @@ var (
 
 func main() {
 	flag.StringVar(&fileArg, "file", "", "Name of the file to process (relative to the current directory")
-	flag.IntVar(&columnArg, "column", 0, "Which column should be used for unique values")
+	flag.IntVar(&columnArg, "column", 0, "Which column should be used for unique values (defaults to the first column which is 0)")
 	flag.BoolVar(&hasHeaderArg, "header", true, "If the file has a header, setting this will bypass the first row of the CSV")
 
 	flag.Parse()
