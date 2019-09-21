@@ -28,7 +28,7 @@ func CSV(f *os.File, opts Options) (int, error) {
 		}
 
 		if line != nil {
-			col := line[0]
+			col := line[opts.Column]
 			if d, ok := data[col]; ok {
 				data[col] = d + 1
 			} else {
