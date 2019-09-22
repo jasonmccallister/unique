@@ -12,9 +12,11 @@ type Options struct {
 	Column     int
 }
 
-// CSV takes a file as a Reader and returns an int of the unique count.
-func CSV(f *os.File, opts Options) (int, error) {
+// CSV takes a file as a Reader and returns an int of the unique count and
+// the total count of the records
+func CSV(f *os.File, opts Options) (int, int, error) {
 	data := make(map[string]int)
+	count := 0
 
 	rdr := csv.NewReader(f)
 
@@ -24,7 +26,7 @@ func CSV(f *os.File, opts Options) (int, error) {
 			break
 		}
 		if err != nil {
-			return 0, err
+			return 0, 0, err
 		}
 
 		if line != nil {
@@ -34,8 +36,9 @@ func CSV(f *os.File, opts Options) (int, error) {
 			} else {
 				data[col] = 1
 			}
+			count++
 		}
 	}
 
-	return len(data), nil
+	return len(data), count, nil
 }

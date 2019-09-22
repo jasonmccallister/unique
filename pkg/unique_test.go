@@ -7,17 +7,19 @@ import (
 
 func TestCSV(t *testing.T) {
 	testCases := []struct {
-		desc      string
-		file      string
-		hasHeader bool
-		column    int
-		expected  int
+		desc           string
+		file           string
+		hasHeader      bool
+		column         int
+		expectedUnique int
+		expectedTotal  int
 	}{
 		{
-			desc:      "default column results to the first",
-			file:      "testdata/emails.csv",
-			hasHeader: true,
-			expected:  2,
+			desc:           "default column results to the first",
+			file:           "../testdata/emails.csv",
+			hasHeader:      true,
+			expectedUnique: 2,
+			expectedTotal:  4,
 		},
 	}
 	for _, tC := range testCases {
@@ -28,16 +30,20 @@ func TestCSV(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			opts := CSVOptions{HasHeaders: false, Column: 0}
+			opts := Options{HasHeaders: false, Column: 0}
 
 			// create the reader
-			actual, err := CSV(f, opts)
+			actualUnique, actualTotal, err := CSV(f, opts)
 			if err != nil {
 				t.Error(err)
 			}
 
-			if actual != tC.expected {
-				t.Errorf("expected count to be %v, got %v instead", tC.expected, actual)
+			if actualUnique != tC.expectedUnique {
+				t.Errorf("expected count to be %v, got %v instead", tC.expectedUnique, actualUnique)
+			}
+
+			if actualTotal != tC.expectedTotal {
+				t.Errorf("expected count to be %v, got %v instead", tC.expectedUnique, actualTotal)
 			}
 		})
 	}

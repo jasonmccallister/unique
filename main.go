@@ -35,7 +35,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	count, err := unique.CSV(file, unique.Options{
+	uniqueCount, totalCount, err := unique.CSV(file, unique.Options{
 		HasHeaders: hasHeaderArg,
 		Column:     columnArg,
 	})
@@ -44,5 +44,10 @@ func main() {
 		os.Exit(1)
 	}
 
-	fmt.Println(fmt.Sprintf("There are a total of %v unique values for column %v", count, columnArg))
+	fmt.Println("")
+	fmt.Println("CSV processed!\nHere are your results:")
+	fmt.Println("\nUsing Column:\t", columnArg)
+	fmt.Println("Total Uniques:\t", uniqueCount)
+	fmt.Println("Total Rows:\t", totalCount)
+	fmt.Println("")
 }
