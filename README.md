@@ -40,3 +40,18 @@ unique orders.csv -column=2
 ```
 
 _**Note**: If you have a large dataset, its best to limit the number of columns. For example, export only the primary key and the value you need to find the uniques._
+
+## Security
+
+If you discover any security related issues, please email themccallister@gmail.com instead of using the issue tracker.
+
+## Credits
+
+- [Jason McCallister](https://github.com/jasonmccallister)
+- [All Contributors](../../contributors)
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+Brought to you by [Jason McCallister](https://mccallister.io)
