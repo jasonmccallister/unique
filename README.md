@@ -18,7 +18,15 @@ The only required argument for `unique` is the path to the file.
 unique orders.csv
 ```
 
+Output:
+
 ```bash
+CSV processed!
+Here are your results:
+
+Using Column:    0
+Total Uniques:   2
+Total Rows:      4
 ```
 
 > The above command will default to using the first column (`0`) of the CSV as the row.
