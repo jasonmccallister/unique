@@ -10,6 +10,8 @@ Using Go, and if you have `$GOPATH/bin` in your path, you can install using:
 go get -u github.com/jasonmccallister/unique
 ```
 
+Alternatively, you can [visit the releases](https://github.com/jasonmccallister/unique/releases) page and download the binary for your Operating System.
+
 ## Usage
 
 The only required argument for `unique` is the path to the file.
